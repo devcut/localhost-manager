@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <ul class="list-project">
+        {% for folder in folders %}
+            <li>
+                <h1>{{ folder.filename }}</h1>
+                <a target="_blank" href="http://{{ folder.filename }}.test">
+                    Front
+                </a>
+                <a target="_blank" href="http://{{ folder.filename }}.test/admin">
+                    Admin
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
