@@ -1,0 +1,3 @@
+config: Configuration
+search:
+  placeholder: Rechercher un projet...

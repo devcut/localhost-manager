@@ -1,0 +1,36 @@
+header {
+  background-color: $color-header;
+  padding: $gutter;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  div {
+    min-width: 300px;
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  .logo {
+    margin-bottom: 0;
+
+    span {
+      font-family: $font-secondary;
+      font-size: 35px;
+    }
+  }
+}
+
+.search-container {
+  max-width: 600px;
+  margin: 30px auto 0 auto;
+
+  input {
+    width: 100%;
+  }
+}

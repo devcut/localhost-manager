@@ -1,0 +1,16 @@
+<header>
+    <nav>
+        <div>{{ version() }}</div>
+        <h1 class="logo">Localhost <span>Manager</span></h1>
+        <div>
+            <a href="#">{{ 'config'|trans }}</a>
+        </div>
+    </nav>
+
+    {% if get_route == 'homepage' %}
+        <div class="search-container">
+            <input type="search" v-model="search" placeholder="{{ 'search.placeholder'|trans }}">
+        </div>
+    {% endif %}
+</header>
+

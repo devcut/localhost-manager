@@ -1,11 +1,22 @@
 {
-  "dependencies": {
-    "jquery": "^3.4.1"
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Guillaume Egloff",
+    "email": "guillaume.egloff@gmail.com"
   },
-  "license": "UNLICENSED",
+  "keywords": [
+    "localhost",
+    "manager",
+    "webserver",
+    "website"
+  ],
   "scripts": {
     "dev": "encore dev",
     "watch": "encore dev --watch"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1"
   },
   "devDependencies": {
     "@symfony/webpack-encore": "^0.28.2",

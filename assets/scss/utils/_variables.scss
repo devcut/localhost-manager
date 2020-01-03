@@ -1,0 +1,91 @@
+//=====================================================
+//  Animations
+//=====================================================
+$duration: 0.3s;
+
+//=====================================================
+//  Breakpoints
+//=====================================================
+$screen-xs: 520px;
+$screen-s: 640px;
+$screen-m: 768px;
+$screen-l: 1024px;
+$screen-ml: 1250px;
+$screen-xl: 1366px;
+
+//=====================================================
+//  Wrapper sizes
+//=====================================================
+$wrapper-size-small: 660px;
+$wrapper-size-medium: $screen-l;
+$wrapper-size: $screen-ml;
+$wrapper-size-large: 1250px;
+
+//=====================================================
+//  Colors
+//=====================================================
+// Categories
+$color-primary: #697efc;
+$color-secondary: #ff556c;
+$color-btn-dark: #494953;
+$color-header: #D7DCE4;
+
+// Basics
+$color-black-text: #494953;
+$color-black: #494953;
+$color-white: #ffffff;
+$color-grey: #d0d0d0;
+$color-grey-middle: darken($color-grey, 10%);
+$color-grey-light: #f9f8f8;
+$color-grey-dark: darken($color-grey, 15%);
+
+// States
+$color-info: #3498db;
+$color-success: #65d269;
+$color-warning: #ff7a5a;
+$color-error: #ff374d;
+
+//=====================================================
+//  Fonts
+//=====================================================
+// Famillies
+$font-primary: 'Roboto', sans-serif;
+$font-secondary: 'Caveat', sans-serif;
+$font-icon: 'icon'; // npm script = npm run iconfont
+
+// Sizes
+$font-size-base: 16px !default;
+$font-size-extra-small: 12px;
+$font-size-small: 14px;
+$font-size-base: $font-size-base;
+$font-size-middle-small: 18px;
+$font-size-middle: 22px;
+$font-size-big: 30px;
+
+// Weights
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+$font-weight-extra-bold: 900;
+
+$line-height-base: 1.5em;
+$headings-margin-bottom: 30px;
+$paragraph-margin-bottom: 20px;
+
+// Links
+$link-color: $color-secondary;
+$link-decoration: underline dotted;
+$link-hover-color: rgba($link-color, 0.7);
+$link-hover-decoration: underline;
+
+// Table
+$table-cell-padding: 0.75rem !default;
+$table-caption-color: $color-grey;
+
+//=====================================================
+//  Layout
+//=====================================================
+$gutter: 30px;
+$border-radius: 5px;

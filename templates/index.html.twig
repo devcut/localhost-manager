@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <div id="app">
-        <input type="text" v-model="search" placeholder="Rechercher">
-
-        <ul class="list-project" data-project="{{ folders|json_encode }}">
-                <li v-for="project in filteredProjects">
-                    <h1>${ project }</h1>
-                    <a target="_blank" v-bind:href="'http://'+ project  +'.test'">
-                        Front
-                    </a>
-                    <a target="_blank" v-bind:href="'http://'+ project  +'.test/admin'">
-                        Admin
-                    </a>
-                </li>
-        </ul>
-    </div>
+{% block main %}
+    <ul class="list-project" data-projects="{{ folders|json_encode }}">
+        <li v-for="project in filteredProjects" class="project">
+            <h2>${ project.name }</h2>
+            <div v-if="project.framework">
+                <img style="width: 20px" v-bind:src="'/images/'+ project.framework" alt="">
+            </div>
+            <a target="_blank" v-bind:href="'http://'+ project.name +'.test'">
+                Front
+            </a>
+            <a target="_blank" v-bind:href="'http://'+ project.name +'.test/admin'">
+                Admin
+            </a>
+        </li>
+    </ul>
 {% endblock %}
