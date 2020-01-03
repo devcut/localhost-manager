@@ -12,12 +12,13 @@ Encore
     // caching strategies. Use Encore.isProduction() to enable it only for production.
     .enableVersioning(false)
     .addEntry('app', './assets/js/app.js')
+    .enableVueLoader()
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .enableIntegrityHashes(Encore.isProduction())
     .configureBabel(null, {
         useBuiltIns: 'usage',
-        corejs: 3,
+        corejs: 2,
     })
 ;
 

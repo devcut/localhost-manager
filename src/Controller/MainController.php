@@ -20,7 +20,7 @@ class MainController extends AbstractController
         $dirs = $finder->directories()->depth(0);
 
         foreach($dirs->getIterator() as $iterator) {
-            $folders[] = $iterator;
+            $folders[] = $iterator->getFilename();
         }
 
         return $this->render('index.html.twig', [

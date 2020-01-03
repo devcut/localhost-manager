@@ -11,4 +11,20 @@ require('../css/app.css');
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+import Vue from 'vue';
+
+new Vue({
+    el: '#app',
+    delimiters: ['${', '}'],
+    data: {
+        projects: $('.list-project').data('project'),
+        search: ""
+    },
+    computed: {
+        filteredProjects: function () {
+            return this.projects.filter((projects) => {
+                return projects.toLowerCase().match(this.search.toLowerCase());
+            });
+        }
+    }
+});

@@ -1,17 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <ul class="list-project">
-        {% for folder in folders %}
-            <li>
-                <h1>{{ folder.filename }}</h1>
-                <a target="_blank" href="http://{{ folder.filename }}.test">
-                    Front
-                </a>
-                <a target="_blank" href="http://{{ folder.filename }}.test/admin">
-                    Admin
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+    <div id="app">
+        <input type="text" v-model="search" placeholder="Rechercher">
+
+        <ul class="list-project" data-project="{{ folders|json_encode }}">
+                <li v-for="project in filteredProjects">
+                    <h1>${ project }</h1>
+                    <a target="_blank" v-bind:href="'http://'+ project  +'.test'">
+                        Front
+                    </a>
+                    <a target="_blank" v-bind:href="'http://'+ project  +'.test/admin'">
+                        Admin
+                    </a>
+                </li>
+        </ul>
+    </div>
 {% endblock %}
