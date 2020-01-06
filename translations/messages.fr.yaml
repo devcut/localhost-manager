@@ -1,3 +1,8 @@
 config: Configuration
 search:
   placeholder: Rechercher un projet...
+form:
+  config:
+    label:
+      folder: Chemin vers votre dossier de développement
+      exception: Dossier à exclure

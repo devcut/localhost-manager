@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ConfigurationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -34,6 +35,18 @@ class MainController extends AbstractController
 
         return $this->render('index.html.twig', [
             'folders' => $folders
+        ]);
+    }
+
+    /**
+     * @Route("/configuration", name="configuration")
+     */
+    public function configuration()
+    {
+        $form = $this->createForm(ConfigurationType::class);
+
+        return $this->render('configuration.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }

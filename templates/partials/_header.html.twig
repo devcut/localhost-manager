@@ -1,9 +1,11 @@
 <header>
     <nav>
         <div>{{ version() }}</div>
-        <h1 class="logo">Localhost <span>Manager</span></h1>
+        <h1 class="logo">
+            <a href="{{ path('homepage') }}">Localhost <span>Manager</span></a>
+        </h1>
         <div>
-            <a href="#">{{ 'config'|trans }}</a>
+            <a href="{{ path('configuration') }}">{{ 'config'|trans }}</a>
         </div>
     </nav>
 

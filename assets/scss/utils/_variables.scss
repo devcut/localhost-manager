@@ -75,10 +75,10 @@ $headings-margin-bottom: 30px;
 $paragraph-margin-bottom: 20px;
 
 // Links
-$link-color: $color-secondary;
-$link-decoration: underline dotted;
-$link-hover-color: rgba($link-color, 0.7);
-$link-hover-decoration: underline;
+$link-color: inherit;
+$link-decoration: none;
+$link-hover-color: none;
+$link-hover-decoration: none;
 
 // Table
 $table-cell-padding: 0.75rem !default;
