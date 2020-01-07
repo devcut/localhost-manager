@@ -10,7 +10,7 @@ input[type="search"] {
   border-radius: $border-radius;
 
   &::placeholder {
-    color: $color-primary;
+    color: rgba($color-primary, .5);
   }
 }
 
@@ -35,4 +35,12 @@ input[type='email'] {
 .help-text {
   font-size: $font-size-small;
   margin-bottom: 0;
+}
+
+.form-error {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: $color-error;
+  font-size: $font-size-small;
 }

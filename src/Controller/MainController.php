@@ -5,12 +5,11 @@ namespace App\Controller;
 use App\Form\ConfigurationType;
 use App\Service\LocalhostManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Yaml\Yaml;
 
 class MainController extends AbstractController
 {
@@ -19,25 +18,7 @@ class MainController extends AbstractController
      */
     public function index(LocalhostManager $lm)
     {
-        $folders = [];
-        $finder = new Finder();
-        $filesystem = new Filesystem();
-        $localhostManagerContent = $lm->getConfigFile();
-
-        $finder->in($localhostManagerContent['localhost_manager']['folder']);
-        $dirs = $finder->directories()->depth(0);
-
-        foreach($dirs->getIterator() as $key => $iterator) {
-            $folders[] = [
-                'name' => $iterator->getFilename(),
-                'framework' => $filesystem->exists($iterator->getPathname() . '/symfony.lock') ? 'symfony.png' : null,
-            ];
-        }
-
-        // Sort folder by ASC name
-        usort($folders, function ($a, $b) {
-            return strcmp($a['name'], $b['name']);
-        });
+        $folders = $lm->getFolderProject();
 
         return $this->render('main/index.html.twig', [
             'folders' => $folders
@@ -56,8 +37,9 @@ class MainController extends AbstractController
         if ($filesystem->exists($lm->getPath())) {
 
             $localhostManagerContent = $lm->getConfigFile();
+
             $form->get('folder')->setData($localhostManagerContent['localhost_manager']['folder']);
-            $form->get('exception')->setData($localhostManagerContent['localhost_manager']['exception']);
+            $form->get('exception')->setData($lm->getExceptionsFolder());
 
         } else {
             $lm->createConfigFile();
@@ -83,5 +65,32 @@ class MainController extends AbstractController
         return $this->render('main/configuration.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/configuration/development-folder")
+     */
+    public function developmentFolder(Request $request)
+    {
+        $developmentFolder = $request->request->get('folder');
+        $finder = new Finder();
+        $folders = [];
+        $index = 0;
+
+        $finder->in($developmentFolder);
+        $dirs = $finder->directories()->depth(0);
+
+        foreach($dirs->getIterator() as $key => $iterator) {
+            $index++;
+            $folders[] = [
+                'id' => $iterator->getFilename(),
+                'text' => $iterator->getFilename()
+            ];
+        }
+
+        $response = new Response(json_encode($folders));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 }

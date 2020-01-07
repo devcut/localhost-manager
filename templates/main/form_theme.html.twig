@@ -2,6 +2,21 @@
 
 {% trans_default_domain "validators" %}
 
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <ul class="form-error">
+            <li>
+                {%- for error in errors -%}
+                    {{ error.message|trans }}
+                    {%- if not loop.last -%}
+                        <br>
+                    {% endif %}
+                {%- endfor -%}
+            </li>
+        </ul>
+    {%- endif -%}
+{%- endblock form_errors -%}
+
 {% block form_row %}
     <div class="input-line">
         {{ form_label(form) }}
