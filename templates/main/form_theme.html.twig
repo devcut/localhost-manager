@@ -1,0 +1,12 @@
+{% use 'form_div_layout.html.twig' %}
+
+{% trans_default_domain "validators" %}
+
+{% block form_row %}
+    <div class="input-line">
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        {{ form_help(form) }}
+        {{ form_errors(form) }}
+    </div>
+{% endblock %}

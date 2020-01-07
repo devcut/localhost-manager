@@ -30,7 +30,11 @@ class ConfigListener implements EventSubscriberInterface
     {
         $filesystem = new Filesystem();
 
-        if (!$filesystem->exists(__DIR__ . '/../../config/localhost_manager.yaml') && $event->getRequest()->attributes->get('_route') !== 'configuration') {
+        if ($event->getRequest()->attributes->get('_route') === 'configuration') {
+            return;
+        }
+
+        if (!$filesystem->exists(__DIR__ . '/../../config/localhost_manager.yaml')) {
             $url = $this->router->generate('configuration');
             $response = new RedirectResponse($url);
             $event->setResponse($response);

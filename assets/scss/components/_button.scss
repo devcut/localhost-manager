@@ -1,0 +1,47 @@
+%btn-base {
+  display: inline-block;
+  padding: 6px 25px;
+  border-radius: 5px;
+  text-transform: none;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  transition-duration: $duration;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// Primary
+.btn-primary {
+  @extend %btn-base;
+  color: $color-primary;
+  background-color: $color-secondary;
+
+  &:hover {}
+}
+
+.link {
+  display: inline-block;
+  color: $color-primary;
+  margin-bottom: 5px;
+  transition: color $duration ease;
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    height: 1px;
+    width: 20px;
+    margin-right: 5px;
+    background-color: $color-primary;
+    transition: background-color $duration ease;
+  }
+  &:hover {
+    color: $color-secondary;
+    &:before {
+      background-color: $color-secondary;
+    }
+  }
+}

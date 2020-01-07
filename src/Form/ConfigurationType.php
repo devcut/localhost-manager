@@ -13,10 +13,12 @@ class ConfigurationType extends AbstractType
     {
         $builder
             ->add('folder', TextType::class, [
+                'required' => true,
                 'label' => 'form.config.label.folder',
                 'help' => '(Ex: /Users/devcut/Sites)'
             ])
             ->add('exception', TextType::class, [
+                'required' => false,
                 'label' => 'form.config.label.exception'
             ])
         ;

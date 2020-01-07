@@ -1,3 +1,4 @@
+back: Back
 config: Configuration
 search:
   placeholder: Search for a project...
@@ -6,3 +7,4 @@ form:
     label:
       folder: Path to your development file
       exception: Folder to be excluded
+  submit: Submit

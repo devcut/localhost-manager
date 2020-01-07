@@ -1,3 +1,4 @@
+back: Retour
 config: Configuration
 search:
   placeholder: Rechercher un projet...
@@ -6,3 +7,4 @@ form:
     label:
       folder: Chemin vers votre dossier de développement
       exception: Dossier à exclure
+  submit: Valider

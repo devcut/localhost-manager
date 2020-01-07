@@ -1,5 +1,6 @@
 header {
   background-color: $color-header;
+  color: #D7B29D;
   padding: $gutter;
 }
 
@@ -10,10 +11,25 @@ nav {
   align-items: center;
   justify-content: space-between;
 
+  @media screen and (max-width: $screen-l) {
+    display: block;
+    text-align: center;
+  }
+
   div {
     min-width: 300px;
+
+    @media screen and (max-width: $screen-l) {
+      min-width: inherit;
+    }
+
     &:last-child {
       text-align: right;
+
+      @media screen and (max-width: $screen-l) {
+        text-align: center;
+        margin-top: 10px;
+      }
     }
   }
 

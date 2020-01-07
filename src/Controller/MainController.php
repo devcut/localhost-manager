@@ -6,7 +6,9 @@ use App\Form\ConfigurationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Yaml\Yaml;
 
 class MainController extends AbstractController
 {
@@ -19,7 +21,10 @@ class MainController extends AbstractController
         $finder = new Finder();
         $filesystem = new Filesystem();
 
-        $finder->in('/Users/devcut/PhpstormProjects');
+        $localhostManager = __DIR__ . '/../../config/localhost_manager.yaml';
+        $localhostManagerContent = Yaml::parseFile($localhostManager);
+
+        $finder->in($localhostManagerContent['localhost_manager']['folder']);
         $dirs = $finder->directories()->depth(0);
 
         foreach($dirs->getIterator() as $key => $iterator) {
@@ -33,7 +38,7 @@ class MainController extends AbstractController
             return strcmp($a['name'], $b['name']);
         });
 
-        return $this->render('index.html.twig', [
+        return $this->render('main/index.html.twig', [
             'folders' => $folders
         ]);
     }
@@ -41,11 +46,41 @@ class MainController extends AbstractController
     /**
      * @Route("/configuration", name="configuration")
      */
-    public function configuration()
+    public function configuration(Request $request)
     {
+        $filesystem = new Filesystem();
         $form = $this->createForm(ConfigurationType::class);
+        $localhostManager = __DIR__ . '/../../config/localhost_manager.yaml';
 
-        return $this->render('configuration.html.twig', [
+        if ($filesystem->exists($localhostManager)) {
+
+            $localhostManagerContent = Yaml::parseFile($localhostManager);
+            $form->get('folder')->setData($localhostManagerContent['localhost_manager']['folder']);
+            $form->get('exception')->setData($localhostManagerContent['localhost_manager']['exception']);
+
+        } else {
+            $filesystem->dumpFile($localhostManager, '');
+        }
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            file_put_contents($localhostManager, '');
+
+            $data = [
+                'localhost_manager' => [
+                    'folder' => $form->getData()['folder'],
+                    'exception' => $form->getData()['exception']
+                ]
+            ];
+
+            $yaml = Yaml::dump($data);
+            file_put_contents($localhostManager, $yaml);
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('main/configuration.html.twig', [
             'form' => $form->createView()
         ]);
     }
