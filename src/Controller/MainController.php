@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Form\ConfigurationType;
+use App\Service\LocalhostManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,14 +17,12 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(LocalhostManager $lm)
     {
         $folders = [];
         $finder = new Finder();
         $filesystem = new Filesystem();
-
-        $localhostManager = __DIR__ . '/../../config/localhost_manager.yaml';
-        $localhostManagerContent = Yaml::parseFile($localhostManager);
+        $localhostManagerContent = $lm->getConfigFile();
 
         $finder->in($localhostManagerContent['localhost_manager']['folder']);
         $dirs = $finder->directories()->depth(0);
@@ -34,6 +34,7 @@ class MainController extends AbstractController
             ];
         }
 
+        // Sort folder by ASC name
         usort($folders, function ($a, $b) {
             return strcmp($a['name'], $b['name']);
         });
@@ -46,26 +47,26 @@ class MainController extends AbstractController
     /**
      * @Route("/configuration", name="configuration")
      */
-    public function configuration(Request $request)
+    public function configuration(Request $request, LocalhostManager $lm)
     {
         $filesystem = new Filesystem();
         $form = $this->createForm(ConfigurationType::class);
-        $localhostManager = __DIR__ . '/../../config/localhost_manager.yaml';
 
-        if ($filesystem->exists($localhostManager)) {
+        // Check if config file exist
+        if ($filesystem->exists($lm->getPath())) {
 
-            $localhostManagerContent = Yaml::parseFile($localhostManager);
+            $localhostManagerContent = $lm->getConfigFile();
             $form->get('folder')->setData($localhostManagerContent['localhost_manager']['folder']);
             $form->get('exception')->setData($localhostManagerContent['localhost_manager']['exception']);
 
         } else {
-            $filesystem->dumpFile($localhostManager, '');
+            $lm->createConfigFile();
         }
 
         $form->handleRequest($request);
 
+        // On submit set data to config file
         if ($form->isSubmitted() && $form->isValid()) {
-            file_put_contents($localhostManager, '');
 
             $data = [
                 'localhost_manager' => [
@@ -74,8 +75,7 @@ class MainController extends AbstractController
                 ]
             ];
 
-            $yaml = Yaml::dump($data);
-            file_put_contents($localhostManager, $yaml);
+            $lm->setConfigFile($data);
 
             return $this->redirectToRoute('homepage');
         }
