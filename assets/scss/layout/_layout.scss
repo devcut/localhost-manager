@@ -23,12 +23,74 @@ section {
   padding: $gutter;
   margin: -15px;
 
+  @media screen and (max-width: $screen-s) {
+    display: block;
+    margin: -25px 0;
+  }
+
   .project {
+    position: relative;
+    text-align: center;
     max-width: calc(20% - 30px);
     flex-basis: calc(20% - 30px);
     margin: 15px;
     padding: $gutter;
     box-shadow: 0 0 8px 0 rgba($color-primary, .3);
     border-radius: $border-radius;
+
+    @media screen and (max-width: $screen-ml) {
+      max-width: calc(25% - 30px);
+      flex-basis: calc(25% - 30px);
+    }
+
+    @media screen and (max-width: $screen-l) {
+      max-width: calc(33.3334% - 30px);
+      flex-basis: calc(33.3334% - 30px);
+    }
+
+    @media screen and (max-width: $screen-m) {
+      max-width: calc(50% - 30px);
+      flex-basis: calc(50% - 30px);
+    }
+
+    @media screen and (max-width: $screen-s) {
+      max-width: inherit;
+      flex-basis: inherit;
+      margin: 25px 0;
+    }
+  }
+
+  h2 {
+    margin-bottom: 15px;
+  }
+
+  .project-framework {
+    margin-bottom: 15px;
+
+    img {
+      width: 30px;
+      margin-right: 5px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .project-git {
+    position: absolute;
+    right: -7px;
+    top: -7px;
+    width: 35px;
+    transition: transform $duration ease;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .project-action {
+    margin: -5px;
+    & > * {
+      margin: 5px;
+    }
   }
 }

@@ -5,16 +5,18 @@
         <li v-for="project in filteredProjects" class="project">
             <h2>${ project.name }</h2>
 
-            <div v-if="project.framework">
-                <img v-for="framework in project.framework" style="width: 20px" v-bind:src="'/images/'+ framework" alt="">
+            <div class="project-framework" v-if="project.framework.length > 0">
+                <img v-for="framework in project.framework" v-bind:src="'/images/'+ framework" alt="">
             </div>
-            <a v-if="project.git" target="_blank" v-bind:href="project.git">GIT</a>
-            <a target="_blank" v-bind:href="'http://'+ project.name +'.{{ extension }}'">
-                Front
+
+            <a class="project-git" v-if="project.git" target="_blank" v-bind:href="project.git">
+                <img src="{{ asset('images/github.png') }}">
             </a>
-            <a target="_blank" v-bind:href="'http://'+ project.name +'.{{ extension }}/admin'">
-                Admin
-            </a>
+
+            <div class="project-action">
+                <a class="btn-primary" target="_blank" v-bind:href="'http://'+ project.name +'.{{ extension }}'">Front</a>
+                <a v-if="project.framework.length > 0" class="btn-primary" target="_blank" v-bind:href="'http://'+ project.name +'.{{ extension }}/admin'">Admin</a>
+            </div>
         </li>
     </ul>
 {% endblock %}

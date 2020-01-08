@@ -130,7 +130,6 @@ class LocalhostManager
     {
         $folderProjects = [];
         $finder = new Finder();
-        $filesystem = new Filesystem();
         $localhostManagerContent = $this->getConfigFile();
 
         $finder->in($localhostManagerContent['folder']);
