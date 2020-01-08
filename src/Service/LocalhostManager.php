@@ -59,13 +59,16 @@ class LocalhostManager
      * @return array
      * Return array of exception folder
      */
-    public function getExceptionsFolder(): array
+    public function getExceptionsFolder(): ?array
     {
         $exceptions = [];
+        $filesystem = new Filesystem();
 
-        if (isset($this->getConfigFile()['exception'])) {
-            foreach ($this->getConfigFile()['exception'] as $folder) {
-                $exceptions[$folder] = $folder;
+        if ($filesystem->exists($this->getPath())) {
+            if (isset($this->getConfigFile()['exception'])) {
+                foreach ($this->getConfigFile()['exception'] as $folder) {
+                    $exceptions[$folder] = $folder;
+                }
             }
         }
 
@@ -135,7 +138,7 @@ class LocalhostManager
         $finder->in($localhostManagerContent['folder']);
         $dirs = $finder->directories()->depth(0);
 
-        foreach($dirs->getIterator() as $key => $iterator) {
+        foreach ($dirs->getIterator() as $key => $iterator) {
             if (!in_array($iterator->getFilename(), $localhostManagerContent['exception'])) {
                 $folderProjects[] = [
                     'name' => $iterator->getFilename(),
