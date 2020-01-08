@@ -6,5 +6,6 @@ form:
   config:
     label:
       folder: Path to your development file
+      extension: Url extension
       exception: Folder to be excluded
   submit: Submit

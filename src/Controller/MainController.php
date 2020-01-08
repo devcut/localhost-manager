@@ -21,7 +21,8 @@ class MainController extends AbstractController
         $folders = $lm->getFolderProject();
 
         return $this->render('main/index.html.twig', [
-            'folders' => $folders
+            'folders' => $folders,
+            'extension' => $lm->getConfigFile()['extension']
         ]);
     }
 
@@ -38,7 +39,8 @@ class MainController extends AbstractController
 
             $localhostManagerContent = $lm->getConfigFile();
 
-            $form->get('folder')->setData($localhostManagerContent['localhost_manager']['folder']);
+            $form->get('folder')->setData($localhostManagerContent['folder']);
+            $form->get('extension')->setData($localhostManagerContent['extension']);
             $form->get('exception')->setData($lm->getExceptionsFolder());
 
         } else {
@@ -53,6 +55,7 @@ class MainController extends AbstractController
             $data = [
                 'localhost_manager' => [
                     'folder' => $form->getData()['folder'],
+                    'extension' => $form->getData()['extension'],
                     'exception' => $form->getData()['exception']
                 ]
             ];

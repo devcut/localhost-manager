@@ -41,7 +41,7 @@ class LocalhostManager
      */
     public function getConfigFile(): array
     {
-        return Yaml::parseFile($this->getPath());
+        return Yaml::parseFile($this->getPath())['localhost_manager'];
     }
 
     /**
@@ -63,8 +63,8 @@ class LocalhostManager
     {
         $exceptions = [];
 
-        if (isset($this->getConfigFile()['localhost_manager']['exception'])) {
-            foreach ($this->getConfigFile()['localhost_manager']['exception'] as $folder) {
+        if (isset($this->getConfigFile()['exception'])) {
+            foreach ($this->getConfigFile()['exception'] as $folder) {
                 $exceptions[$folder] = $folder;
             }
         }
@@ -94,6 +94,35 @@ class LocalhostManager
     }
 
     /**
+     * @param SplFileInfo $splFileInfo
+     * @return string|null
+     * Return git url of project
+     */
+    public function getGithubInfo(SplFileInfo $splFileInfo): ?string
+    {
+        $filesystem = new Filesystem();
+
+        if ($filesystem->exists($splFileInfo->getPathname() . '/.git/config')) {
+            $handle = fopen($splFileInfo->getPathname() . '/.git/config', 'r');
+            if ($handle) {
+                while (($line = fgets($handle)) !== false) {
+                    if (strpos($line, 'url = git@github.com:') !== false) {
+                        $git = str_replace('url = git@github.com:', '', $line);
+                        $git = str_replace('.git', '', $git);
+                        $git = preg_replace("/\t|\n/", "", $git);
+
+                        return 'https://github.com/' . $git;
+                    }
+                }
+
+                fclose($handle);
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return array
      * Return folders project without excluded folders
      */
@@ -104,14 +133,15 @@ class LocalhostManager
         $filesystem = new Filesystem();
         $localhostManagerContent = $this->getConfigFile();
 
-        $finder->in($localhostManagerContent['localhost_manager']['folder']);
+        $finder->in($localhostManagerContent['folder']);
         $dirs = $finder->directories()->depth(0);
 
         foreach($dirs->getIterator() as $key => $iterator) {
-            if (!in_array($iterator->getFilename(), $localhostManagerContent['localhost_manager']['exception'])) {
+            if (!in_array($iterator->getFilename(), $localhostManagerContent['exception'])) {
                 $folderProjects[] = [
                     'name' => $iterator->getFilename(),
-                    'framework' => $this->checkFramework($iterator)
+                    'framework' => $this->checkFramework($iterator),
+                    'git' => $this->getGithubInfo($iterator)
                 ];
             }
         }

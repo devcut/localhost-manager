@@ -9,6 +9,7 @@
             <div class="box">
                 {{ form_start(form) }}
                 {{ form_row(form.folder) }}
+                {{ form_row(form.extension) }}
                 {{ form_row(form.exception) }}
                 <button class="btn-primary" type="submit">{{ 'form.submit'|trans }}</button>
                 {{ form_end(form) }}

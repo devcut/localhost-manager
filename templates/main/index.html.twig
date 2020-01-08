@@ -8,11 +8,11 @@
             <div v-if="project.framework">
                 <img v-for="framework in project.framework" style="width: 20px" v-bind:src="'/images/'+ framework" alt="">
             </div>
-
-            <a target="_blank" v-bind:href="'http://'+ project.name +'.test'">
+            <a v-if="project.git" target="_blank" v-bind:href="project.git">GIT</a>
+            <a target="_blank" v-bind:href="'http://'+ project.name +'.{{ extension }}'">
                 Front
             </a>
-            <a target="_blank" v-bind:href="'http://'+ project.name +'.test/admin'">
+            <a target="_blank" v-bind:href="'http://'+ project.name +'.{{ extension }}/admin'">
                 Admin
             </a>
         </li>

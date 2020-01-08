@@ -26,10 +26,15 @@ class ConfigurationType extends AbstractType
             ->add('folder', TextType::class, [
                 'required' => true,
                 'label' => 'form.config.label.folder',
-                'help' => '(Ex: /Users/devcut/Sites)',
+                'help' => 'Ex: /Users/devcut/Sites',
                 'attr' => [
                     'class' => 'js-configuration-folder'
                 ]
+            ])
+            ->add('extension', TextType::class, [
+                'required' => true,
+                'label' => 'form.config.label.extension',
+                'help' => 'Ex: .loc',
             ])
             ->add('exception', ChoiceType::class, [
                 'required' => false,

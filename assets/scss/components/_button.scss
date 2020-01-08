@@ -6,7 +6,6 @@
   text-decoration: none;
   border: 0;
   cursor: pointer;
-  transition-duration: $duration;
 
   &:hover {
     text-decoration: none;
@@ -18,8 +17,11 @@
   @extend %btn-base;
   color: $color-primary;
   background-color: $color-secondary;
+  transition: background-color $duration ease;
 
-  &:hover {}
+  &:hover {
+    background-color: darken($color-secondary, 5%);
+  }
 }
 
 .link {

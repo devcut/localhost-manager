@@ -6,5 +6,6 @@ form:
   config:
     label:
       folder: Chemin vers votre dossier de développement
+      extension: Extension d'url
       exception: Dossier à exclure
   submit: Valider

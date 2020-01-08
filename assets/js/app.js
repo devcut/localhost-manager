@@ -11,7 +11,8 @@ if (listProjects.length > 0) {
         delimiters: ['${', '}'],
         props: {
             name: String,
-            framework: String
+            framework: String,
+            git: String
         },
         data: {
             projects: projects,
