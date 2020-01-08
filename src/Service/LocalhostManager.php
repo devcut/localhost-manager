@@ -39,7 +39,7 @@ class LocalhostManager
      * @return array
      * Parse content of configuration file
      */
-    public function getConfigFile(): array
+    public function getConfigFile(): ?array
     {
         return Yaml::parseFile($this->getPath())['localhost_manager'];
     }

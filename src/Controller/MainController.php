@@ -32,6 +32,7 @@ class MainController extends AbstractController
     public function configuration(Request $request, LocalhostManager $lm)
     {
         $filesystem = new Filesystem();
+
         $form = $this->createForm(ConfigurationType::class);
 
         // Check if config file exist
