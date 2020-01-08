@@ -6,11 +6,11 @@
             <h2>${ project.name }</h2>
 
             <div class="project-framework" v-if="project.framework.length > 0">
-                <img v-for="framework in project.framework" v-bind:src="'/images/'+ framework" alt="">
+                <img v-for="framework in project.framework" v-bind:src="'/images/'+ framework" alt="Framework">
             </div>
 
-            <a class="project-git" v-if="project.git" target="_blank" v-bind:href="project.git">
-                <img src="{{ asset('images/github.png') }}">
+            <a class="github-corner" v-if="project.git" target="_blank" v-bind:href="project.git">
+                <img src="{{ asset('images/github.svg') }}" alt="Github">
             </a>
 
             <div class="project-action">

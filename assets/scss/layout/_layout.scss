@@ -29,12 +29,13 @@ section {
   }
 
   .project {
+    overflow: hidden;
     position: relative;
     text-align: center;
     max-width: calc(20% - 30px);
     flex-basis: calc(20% - 30px);
     margin: 15px;
-    padding: $gutter;
+    padding: $gutter 40px;
     box-shadow: 0 0 8px 0 rgba($color-primary, .3);
     border-radius: $border-radius;
 
@@ -76,14 +77,22 @@ section {
     }
   }
 
-  .project-git {
+  .github-corner {
+    overflow: hidden;
     position: absolute;
-    right: -7px;
-    top: -7px;
-    width: 35px;
-    transition: transform $duration ease;
-    &:hover {
-      transform: scale(1.1);
+    right: -45px;
+    top: -45px;
+    width: 90px;
+    height: 90px;
+    background-color: black;
+    transform: rotate(45deg);
+
+    img {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 22px;
     }
   }
 
