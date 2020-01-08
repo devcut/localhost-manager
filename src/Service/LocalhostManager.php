@@ -5,6 +5,7 @@ namespace App\Service;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Yaml\Yaml;
 
 class LocalhostManager
@@ -72,6 +73,27 @@ class LocalhostManager
     }
 
     /**
+     * @param SplFileInfo $splFileInfo
+     * @return array|null
+     * Check framework used in project
+     */
+    public function checkFramework(SplFileInfo $splFileInfo): ?array
+    {
+        $framework = [];
+        $filesystem = new Filesystem();
+
+        if ($filesystem->exists($splFileInfo->getPathname() . '/symfony.lock')) {
+            $framework[] = 'symfony.png';
+        }
+
+        if ($filesystem->exists($splFileInfo->getPathname() . '/wp-load.php')) {
+            $framework[] = 'wordpress.png';
+        }
+
+        return $framework;
+    }
+
+    /**
      * @return array
      * Return folders project without excluded folders
      */
@@ -89,7 +111,7 @@ class LocalhostManager
             if (!in_array($iterator->getFilename(), $localhostManagerContent['localhost_manager']['exception'])) {
                 $folderProjects[] = [
                     'name' => $iterator->getFilename(),
-                    'framework' => $filesystem->exists($iterator->getPathname() . '/symfony.lock') ? 'symfony.png' : null,
+                    'framework' => $this->checkFramework($iterator)
                 ];
             }
         }

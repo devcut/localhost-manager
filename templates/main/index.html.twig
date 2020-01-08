@@ -4,9 +4,11 @@
     <ul class="list-project" data-projects="{{ folders|json_encode }}">
         <li v-for="project in filteredProjects" class="project">
             <h2>${ project.name }</h2>
+
             <div v-if="project.framework">
-                <img style="width: 20px" v-bind:src="'/images/'+ project.framework" alt="">
+                <img v-for="framework in project.framework" style="width: 20px" v-bind:src="'/images/'+ framework" alt="">
             </div>
+
             <a target="_blank" v-bind:href="'http://'+ project.name +'.test'">
                 Front
             </a>
