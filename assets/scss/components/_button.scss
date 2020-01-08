@@ -24,6 +24,19 @@
   }
 }
 
+// Secondary
+.btn-secondary {
+  @extend %btn-base;
+  color: $color-secondary;
+  background-color: $color-primary;
+  transition: background-color $duration ease;
+
+  &:hover {
+    background-color: darken($color-primary, 5%);
+  }
+}
+
+
 .link {
   display: inline-block;
   color: $color-primary;
