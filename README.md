@@ -1,6 +1,6 @@
 # Localhost Manager :floppy_disk:
 
-## Utilisation
+## Usage
 
 If you are working on web projects and you have many projects on your machine, it becomes difficult to remember certain projects.
 That's why I created this little tool that makes a list of all the projects that are on my machine and gives me the main project information (Github, Front, Admin, Framework).
@@ -15,4 +15,4 @@ That's why I created this little tool that makes a list of all the projects that
 
 Contributions are welcome on this project.
 
-If the tool is not translated into your language, do not hesitate to create a new translation file in ```/translations/messages.your-lang-prefix.yaml```. Don't be afraid, there are less than 10 translations :grin:
+If the tool is not translated into your language, do not hesitate to create a new translation file in ```/translations/messages.your-lang-prefix.yaml```. Don't be afraid, there are less than 10 sentence :grin:
