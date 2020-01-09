@@ -126,6 +126,24 @@ class LocalhostManager
     }
 
     /**
+     * @param SplFileInfo $splFileInfo
+     * @return string|null
+     * Return path of favicon if it's found
+     */
+    public function getFavicon(SplFileInfo $splFileInfo): ?string
+    {
+        $filesystem = new Filesystem();
+
+        if ($filesystem->exists($splFileInfo->getPathname() . '/favicon.png') || $filesystem->exists($splFileInfo->getPathname() . '/public/favicon.png')) {
+            return '/favicon.png';
+        } else if ($filesystem->exists($splFileInfo->getPathname() . '/public/images/favicon.png')) {
+            return '/images/favicon.png';
+        }
+
+        return null;
+    }
+
+    /**
      * @return array
      * Return folders project without excluded folders
      */
@@ -143,7 +161,8 @@ class LocalhostManager
                 $folderProjects[] = [
                     'name' => $iterator->getFilename(),
                     'framework' => $this->checkFramework($iterator),
-                    'git' => $this->getGithubInfo($iterator)
+                    'git' => $this->getGithubInfo($iterator),
+                    'favicon' => $this->getFavicon($iterator)
                 ];
             }
         }

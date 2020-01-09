@@ -12,7 +12,8 @@ if (listProjects.length > 0) {
         props: {
             name: String,
             framework: String,
-            git: String
+            git: String,
+            favicon: String
         },
         data: {
             projects: projects,

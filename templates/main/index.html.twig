@@ -9,7 +9,7 @@
             </a>
 
             <div class="project-container">
-                <h2>${ project.name }</h2>
+                <h2><img class="project-favicon" v-if="project.favicon" v-bind:src="'http://'+ project.name + '.{{ extension }}' + project.favicon"> ${ project.name }</h2>
 
                 <div class="project-framework" v-if="project.framework.length > 0">
                     <img v-for="framework in project.framework" v-bind:src="'/images/'+ framework" alt="Framework">
