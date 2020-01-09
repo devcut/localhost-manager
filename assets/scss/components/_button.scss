@@ -15,7 +15,7 @@
 // Primary
 .btn-primary {
   @extend %btn-base;
-  color: $color-primary;
+  color: white;
   background-color: $color-secondary;
   transition: background-color $duration ease;
 
@@ -27,7 +27,7 @@
 // Secondary
 .btn-secondary {
   @extend %btn-base;
-  color: $color-secondary;
+  color: white;
   background-color: $color-primary;
   transition: background-color $duration ease;
 

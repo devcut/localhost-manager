@@ -1,11 +1,11 @@
 <header>
     <nav>
-        <div>{{ version() }}</div>
+        <div class="version">{{ version() }}</div>
         <h1 class="logo">
             <a href="{{ path('homepage') }}">Localhost <span>Manager</span></a>
         </h1>
         <div>
-            <a class="btn-primary" href="{{ path('configuration') }}">{{ 'config'|trans }}</a>
+            <a class="btn-secondary" href="{{ path('configuration') }}">{{ 'config'|trans }}</a>
         </div>
     </nav>
 

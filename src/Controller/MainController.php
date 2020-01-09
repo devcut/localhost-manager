@@ -56,7 +56,7 @@ class MainController extends AbstractController
             $data = [
                 'localhost_manager' => [
                     'folder' => $form->getData()['folder'],
-                    'extension' => $form->getData()['extension'],
+                    'extension' => substr($form->getData()['extension'], 0, 1) === '.' ? $form->getData()['extension'] : '.' . $form->getData()['extension'],
                     'exception' => $form->getData()['exception']
                 ]
             ];

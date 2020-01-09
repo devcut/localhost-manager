@@ -9,16 +9,16 @@
             </a>
 
             <div class="project-container">
-                <h2><img class="project-favicon" v-if="project.favicon" v-bind:src="'http://'+ project.name + '.{{ extension }}' + project.favicon"> ${ project.name }</h2>
+                <h2><img class="project-favicon" v-if="project.favicon" v-bind:src="'http://'+ project.name + '{{ extension }}' + project.favicon"> ${ project.name }</h2>
 
                 <div class="project-framework" v-if="project.framework.length > 0">
-                    <img v-for="framework in project.framework" v-bind:src="'/images/'+ framework" alt="Framework">
+                    <div class="framework" v-for="framework in project.framework">${ framework }</div>
                 </div>
             </div>
 
             <div class="project-action">
-                <a class="btn-primary" target="_blank" v-bind:href="'http://'+ project.name +'.{{ extension }}'">Front</a>
-                <a v-if="project.framework.length > 0" class="btn-secondary" target="_blank" v-bind:href="'http://'+ project.name +'.{{ extension }}/admin'">Admin</a>
+                <a class="btn-primary" target="_blank" v-bind:href="'http://'+ project.name + '{{ extension }}'">Front</a>
+                <a v-if="project.framework.length > 0" class="btn-secondary" target="_blank" v-bind:href="'http://'+ project.name +'{{ extension }}/admin'">Admin</a>
             </div>
         </li>
     </ul>

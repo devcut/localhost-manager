@@ -25,10 +25,10 @@ $wrapper-size-large: 1250px;
 //  Colors
 //=====================================================
 // Categories
-$color-primary: #796465;
-$color-secondary: #D7B29D;
+$color-primary: #3979CD;
+$color-secondary: darken($color-primary, 15%);
 $color-btn-dark: #494953;
-$color-header: #796465;
+$color-header: $color-secondary;
 
 // Basics
 $color-black-text: #494953;

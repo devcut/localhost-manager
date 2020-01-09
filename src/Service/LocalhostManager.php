@@ -86,11 +86,11 @@ class LocalhostManager
         $filesystem = new Filesystem();
 
         if ($filesystem->exists($splFileInfo->getPathname() . '/symfony.lock')) {
-            $framework[] = 'symfony.png';
+            $framework[] = 'Symfony';
         }
 
         if ($filesystem->exists($splFileInfo->getPathname() . '/wp-load.php')) {
-            $framework[] = 'wordpress.png';
+            $framework[] = 'Wordpress';
         }
 
         return $framework;
