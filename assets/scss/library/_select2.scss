@@ -7,7 +7,7 @@
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  color: $color-primary;
+  color: white;
   background-color: $color-secondary;
 }
 
@@ -15,6 +15,6 @@
   background-color: $color-secondary;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-  color: $color-primary;
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove, .select2-container--default .select2-results__option[aria-selected=true] {
+  color: white;
 }
