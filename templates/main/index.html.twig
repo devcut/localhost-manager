@@ -1,27 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <ul class="list-project" data-projects="{{ folders|json_encode }}">
-        <li v-for="project in filteredProjects" class="project">
 
-            <div class="project-header">
-                <a class="github-corner" v-if="project.git" target="_blank" v-bind:href="project.git">
-                    <img src="{{ asset('images/github.svg') }}" alt="Github">
-                </a>
-                <h2 class="project-title"><img class="project-favicon" v-if="project.favicon" v-bind:src="'http://'+ project.name + '{{ extension }}' + project.favicon" alt=""> ${ project.name }</h2>
-                <p class="project-modification" v-if="project.modification">
-                    {{ 'last.modified'|trans }} ${ project.modification }
-                </p>
-            </div>
+    <section>
 
-            <div class="project-framework" v-if="project.framework.length > 0">
-                <div class="framework" v-for="framework in project.framework">${ framework }</div>
-            </div>
+        <h1 v-if="filteredProjects.length > 1">${ filteredProjects.length } {{ 'results'|trans }}</h1>
+        <h1 v-else>${ filteredProjects.length } {{ 'result'|trans }}</h1>
 
-            <div class="project-action">
-                <a class="btn-primary" target="_blank" v-bind:href="'http://'+ project.name + '{{ extension }}'">Front</a>
-                <a v-if="project.framework.length > 0" class="btn-secondary" target="_blank" v-bind:href="'http://'+ project.name +'{{ extension }}/admin'">Admin</a>
-            </div>
-        </li>
-    </ul>
+        <ul class="list-project" data-projects="{{ folders|json_encode }}">
+            <li v-for="project in filteredProjects" class="project">
+
+                <div class="project-header">
+                    <a class="github-corner" v-if="project.git" target="_blank" v-bind:href="project.git">
+                        <img src="{{ asset('images/github.svg') }}" alt="Github">
+                    </a>
+                    <h2 class="project-title"><img class="project-favicon" v-if="project.favicon" v-bind:src="'http://'+ project.name + '{{ extension }}' + project.favicon" alt=""> ${ project.name }</h2>
+                    <p class="project-modification" v-if="project.modification">
+                        {{ 'last.modified'|trans }} ${ project.modification }
+                    </p>
+                </div>
+
+                <div class="project-framework" v-if="project.framework.length > 0">
+                    <div class="framework" v-for="framework in project.framework">${ framework }</div>
+                </div>
+
+                <div class="project-action">
+                    <a class="btn-primary" target="_blank" v-bind:href="'http://'+ project.name + '{{ extension }}'">Front</a>
+                    <a v-if="project.framework.length > 0" class="btn-secondary" target="_blank" v-bind:href="'http://'+ project.name +'{{ extension }}/admin'">Admin</a>
+                </div>
+            </li>
+        </ul>
+    </section>
 {% endblock %}

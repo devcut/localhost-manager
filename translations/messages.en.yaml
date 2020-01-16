@@ -1,5 +1,7 @@
 back: Back
 config: Configuration
+result: result
+results: results
 last.modified: "Last modified:"
 search:
   placeholder: Search for a project...
