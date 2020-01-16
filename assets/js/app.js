@@ -13,7 +13,8 @@ if (listProjects.length > 0) {
             name: String,
             framework: String,
             git: String,
-            favicon: String
+            favicon: String,
+            modification: String
         },
         data: {
             projects: projects,

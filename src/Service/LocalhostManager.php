@@ -2,19 +2,33 @@
 
 namespace App\Service;
 
+use ComposerLockParser\ComposerInfo;
+use DateTime;
+use IntlDateFormatter;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Yaml\Yaml;
 
 class LocalhostManager
 {
-    private $bag;
+    /**
+     * @var ParameterBagInterface
+     */
+    protected $bag;
 
-    public function __construct(ParameterBagInterface $bag)
+    /**
+     * @var RequestStack
+     */
+    protected $requestStack;
+
+    public function __construct(ParameterBagInterface $bag, RequestStack $requestStack)
     {
         $this->bag = $bag;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -86,7 +100,17 @@ class LocalhostManager
         $filesystem = new Filesystem();
 
         if ($filesystem->exists($splFileInfo->getPathname() . '/symfony.lock')) {
-            $framework[] = 'Symfony';
+
+            $composerInfo = new ComposerInfo($splFileInfo->getPathname() . '/composer.lock');
+            $packages = $composerInfo->getPackages();
+
+            foreach ($packages as $package) {
+                if ($package->getName() === 'symfony/framework-bundle') {
+                    $framework[] = 'Symfony ' . $package->getVersion();
+                } else if ($package->getName() === 'symfony/symfony') {
+                    $framework[] = 'Symfony ' . $package->getVersion();
+                }
+            }
         }
 
         if ($filesystem->exists($splFileInfo->getPathname() . '/wp-load.php')) {
@@ -99,30 +123,40 @@ class LocalhostManager
     /**
      * @param SplFileInfo $splFileInfo
      * @return string|null
-     * Return git url of project
+     * Return git remote url of project
      */
-    public function getGithubInfo(SplFileInfo $splFileInfo): ?string
+    public function getGithubRemoteUrl(SplFileInfo $splFileInfo): ?string
     {
-        $filesystem = new Filesystem();
+        $process = new Process(['git', 'config', '--get', 'remote.origin.url']);
+        $process->setWorkingDirectory($splFileInfo);
+        $process->run();
 
-        if ($filesystem->exists($splFileInfo->getPathname() . '/.git/config')) {
-            $handle = fopen($splFileInfo->getPathname() . '/.git/config', 'r');
-            if ($handle) {
-                while (($line = fgets($handle)) !== false) {
-                    if (strpos($line, 'url = git@github.com:') !== false) {
-                        $git = str_replace('url = git@github.com:', '', $line);
-                        $git = str_replace('.git', '', $git);
-                        $git = preg_replace("/\t|\n/", "", $git);
-
-                        return 'https://github.com/' . $git;
-                    }
-                }
-
-                fclose($handle);
-            }
+        if (!$process->isSuccessful()) {
+            return null;
         }
 
-        return null;
+        return 'https://github.com/' . str_replace('git@github.com:', '', $process->getOutput());
+    }
+
+    public function getGithubLatestCommit(SplFileInfo $splFileInfo): ?string
+    {
+        $process = new Process(['git', 'log', '-1', '--format=%cd']);
+        $process->setWorkingDirectory($splFileInfo);
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            return null;
+        }
+
+        $date = new DateTime($process->getOutput());
+
+        $IntlDateFormatter = new IntlDateFormatter(
+            $this->requestStack->getCurrentRequest()->getLocale(),
+            IntlDateFormatter::SHORT,
+            IntlDateFormatter::NONE
+        );
+
+        return $IntlDateFormatter->format($date);
     }
 
     /**
@@ -161,8 +195,9 @@ class LocalhostManager
                 $folderProjects[] = [
                     'name' => $iterator->getFilename(),
                     'framework' => $this->checkFramework($iterator),
-                    'git' => $this->getGithubInfo($iterator),
-                    'favicon' => $this->getFavicon($iterator)
+                    'git' => $this->getGithubRemoteUrl($iterator),
+                    'favicon' => $this->getFavicon($iterator),
+                    'modification' => $this->getGithubLatestCommit($iterator)
                 ];
             }
         }

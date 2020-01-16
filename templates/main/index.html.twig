@@ -8,6 +8,10 @@
                 <img src="{{ asset('images/github.svg') }}" alt="Github">
             </a>
 
+            <div v-if="project.modification">
+                {{ 'last.modified'|trans }} ${ project.modification }
+            </div>
+
             <div class="project-container">
                 <h2><img class="project-favicon" v-if="project.favicon" v-bind:src="'http://'+ project.name + '{{ extension }}' + project.favicon"> ${ project.name }</h2>
 

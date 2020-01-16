@@ -84,7 +84,7 @@ class MainController extends AbstractController
         $finder->in($developmentFolder);
         $dirs = $finder->directories()->depth(0);
 
-        foreach($dirs->getIterator() as $key => $iterator) {
+        foreach ($dirs->getIterator() as $key => $iterator) {
             $index++;
             $folders[] = [
                 'id' => $iterator->getFilename(),

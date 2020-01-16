@@ -31,6 +31,7 @@
         "symfony/web-link": "5.0.*",
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.0.*",
+        "t4web/composer-lock-parser": "^1.1",
         "twig/extensions": "^1.5",
         "twig/twig": "^2.0"
     },

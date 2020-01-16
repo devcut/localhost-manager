@@ -1,5 +1,6 @@
 back: Retour
 config: Configuration
+last.modified: "Dernière modification :"
 search:
   placeholder: Rechercher un projet...
 form:
