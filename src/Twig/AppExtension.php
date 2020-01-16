@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use Symfony\Component\Process\Process;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -14,14 +15,16 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function version(): string
+    public function version(): ?string
     {
-        $packageJson = @json_decode(file_get_contents(__DIR__ . '/../../package.json'));
+        $process = new Process(['git', 'describe', '--tags']);
+        $process->run();
 
-        if ($packageJson) {
-            return $packageJson->version;
+        if (!$process->isSuccessful()) {
+            return null;
         }
 
-        return 'package.json not found';
+        return $process->getOutput();
+
     }
 }
