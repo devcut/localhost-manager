@@ -16,7 +16,7 @@ $inputConfigurationFolder.on('change', function () {
         success: function (data) {
             $.each(data, function(i) {
                 // Add new option only if not already exists in select
-                if($inputConfigurationException.find('option[value=' + data[i].text + ']').length === 0) {
+                if($inputConfigurationException.find('option[value="' + data[i].text + '"]').length === 0) {
                     let newOption = new Option(data[i].text, data[i].id, false, false);
                     $inputConfigurationException.append(newOption).trigger('change');
                 }
